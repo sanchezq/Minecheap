@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!--Health-->
+  <xsd:element name="health" type="xsd:float" />
+
+  <!--Quantity-->
+  <xsd:element name="quantity" type="xsd:int" />
+
+  <!--Id-->
+  <xsd:element name="id" type="xsd:int" />
+
+  <!--Slot Number-->
+  <xsd:element name="slotNumber" type="xsd:int"/>
+
+  <!--Vector3-->
+  <xsd:complexType name="vector3">
+    <xsd:sequence>
+      <xsd:element name="x" type="xsd:float" />
+      <xsd:element name="y" type="xsd:float" />
+      <xsd:element name="z" type="xsd:float" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <!--Position-->
+  <xsd:element name="position" type="vector3" />
+
+  <!--Rotation-->
+  <xsd:element name="rotation" type="vector3" />
+ 
+  <!--Slot-->
+  <xsd:element name="slot">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="slotNumber" />
+        <xsd:element ref="id" />
+        <xsd:element ref="quantity" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Inventory-->
+  <xsd:element name="inventory">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="slot" minOccurs="0" maxOccurs="60"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Player-->
+  <xsd:element name="player">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="position" />
+        <xsd:element ref="rotation" />
+        <xsd:element ref="inventory" />
+        <xsd:element ref="health" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Enemy-->
+  <xsd:element name="enemy">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="id" />
+        <xsd:element ref="position" />
+        <xsd:element ref="rotation" />
+        <xsd:element ref="health" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Enemies-->
+  <xsd:element name="enemies">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="enemy" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Block-->
+  <xsd:element name="block" type ="xsd:int"/>
+  
+  <!--Chunk-->
+  <xsd:element name ="chunk">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="block" minOccurs="65536" maxOccurs="65536" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Chunks-->
+  <xsd:element name="chunks">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="chunk" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Chest-->
+  <xsd:element name="chest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="position" />
+        <xsd:element ref="rotation" />
+        <xsd:element ref="inventory" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Chests-->
+  <xsd:element name="chests">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="chest" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!--Save-->
+  <xsd:element name="save">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="player" />
+        <xsd:element ref="enemies" />
+        <xsd:element ref="chunks" />
+        <xsd:element ref="chests" />     
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>  
+</xsd:schema>
